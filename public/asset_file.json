@@ -1,0 +1,50 @@
+{
+  "albums": [
+    {
+      "title": "新疆之旅",
+      "asset_folder": "xjtravel",
+      "image_count": 5
+    },
+    {
+      "title": "霓虹国",
+      "asset_folder": "jp",
+      "image_count": 4
+    },
+    {
+      "title": "用背脊唱情歌那你怎么背着我",
+      "asset_folder": "bjcg",
+      "image_count": 1
+      
+    },
+    {
+      "title": "Life",
+      "asset_folder": "mixed",
+      "image_count": 4
+    },
+    {
+      "title": "上海 & 南京",
+      "asset_folder": "Shanghainanjing",
+      "image_count": 7
+    },
+    {
+      "title": "北京",
+      "asset_folder": "bj",
+      "image_count": 7
+    },
+    {
+      "title": "蓝调",
+      "asset_folder": "ontheway",
+      "image_count": 7
+    },
+    {
+      "title": "阿勒泰",
+      "asset_folder": "aletai",
+      "image_count": 7
+    },
+    {
+      "title": "Dark",
+      "asset_folder": "dark",
+      "image_count": 7
+    }                       
+  ]
+}

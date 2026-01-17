@@ -10,20 +10,23 @@
   padding: 2rem 0;
 }
 
-/* 图库标题区域 - 固定在左上角，正方形样式 */
+/* 图库标题区域 - 固定在右下角，正方形样式 */
 .gallery-header {
   position: fixed;
-  top: 1.5rem;
-  left: 1.5rem;
+  bottom: 1.5rem;
+  right: 1.5rem;
   text-align: center;
-  padding: 1.5rem;
-  width: 140px;
-  height: 140px;
+  padding: 1rem;
+  /* 恢复正方形尺寸 */
+  width: 100px;
+  height: 100px;
   z-index: 100;
-  border-radius: 16px;
+  border-radius: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* 允许子元素适当超出容器 */
+  overflow: visible;
 }
 
 /* 用户资料样式 */
@@ -31,19 +34,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   width: 100%;
 }
 
 /* 头像样式 */
 .avatar {
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  /* 恢复适当的负margin，增强视觉效果 */
+  margin-bottom: -8px;
 }
 
 .avatar:hover {
@@ -57,28 +62,76 @@
   object-fit: cover;
 }
 
-/* 用户名样式 */
+/* 用户名样式 - 提高优先级，确保显示完整 */
 .user-name {
+  /* 重置h1默认样式 */
+  all: unset;
+  /* 进一步增大字体大小 */
   font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  margin: 0;
-  letter-spacing: -0.5px;
-  background: none;
-  -webkit-background-clip: unset;
-  -webkit-text-fill-color: white;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.85);
+  letter-spacing: 0;
   text-align: center;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  /* 确保文字完全显示 */
+  overflow: visible;
   white-space: nowrap;
+  /* 确保宽度足够 */
+  min-width: 100%;
+}
+
+/* 移动端响应式优化 */
+@media (max-width: 768px) {
+  /* 调整header尺寸 - 正方形，确保内容完全在框内 */
+  .gallery-header {
+    /* 正方形尺寸，确保足够容纳内容 */
+    width: 90px;
+    height: 90px;
+    padding: 0.75rem;
+    bottom: 1rem;
+    right: 1rem;
+    /* 确保内容不超出 */
+    overflow: hidden;
+  }
+  
+  /* 调整头像样式 */
+  .avatar {
+    width: 40px;
+    height: 40px;
+    /* 移除负margin，确保头像完全在容器内 */
+    margin-bottom: 0;
+    /* 增强阴影效果 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* 调整用户资料间距 */
+  .user-profile {
+    gap: 0.3rem;
+  }
+  
+  /* 调整用户名样式 - 确保字体大小合适，完全在框内 */
+  .user-name {
+    font-size: 0.02rem;
+    font-weight: 200;
+    letter-spacing: 0;
+    /* 限制宽度，确保在容器内 */
+    max-width: 100%;
+  }
+  
+  /* 调整社交媒体弹窗位置 */
+  .social-links-popup {
+    right: auto;
+    left: 1rem;
+    bottom: 1rem;
+    width: calc(100vw - 2rem);
+    max-width: 300px;
+  }
 }
 
 /* 社交媒体链接弹窗 */
 .social-links-popup {
   position: fixed;
-  top: 1.5rem;
-  left: calc(1.5rem + 140px + 1rem); /* header右侧 */
+  bottom: 1.5rem;
+  right: calc(1.5rem + 100px + 1rem); /* ShaunX图标左侧 */
   width: 200px;
   padding: 1.5rem;
   z-index: 99;
@@ -98,17 +151,22 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: white;
+  color: var(--on-surface);
   text-decoration: none;
   padding: 0.75rem;
   border-radius: 12px;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-color);
+  border: 1px solid var(--outline-color);
+  box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .social-link-item:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
   transform: translateX(4px);
+  box-shadow: 0 4px 8px var(--shadow-color);
+  border-color: var(--primary-color);
 }
 
 /* 社交媒体图标 */
@@ -144,21 +202,33 @@
 /* 图库网格布局 */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 2rem;
   padding: 0 2rem;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+}
+
+/* 桌面端布局优化 - 1440px宽度下一行显示4个相册 */
+.gallery-grid.is-desktop {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  max-width: 1440px;
+  gap: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* 模态框图片样式 */
 .modal-image {
-  width: 100%;
+  width: auto;
   height: auto;
+  max-width: 100%;
   max-height: 80vh;
   object-fit: contain;
-  border-radius: 12px;
+  border: none;
+  display: block;
 }
 
 /* 模态框导航按钮 */
@@ -216,67 +286,57 @@
   font-weight: 500;
 }
 
-/* 模态框内容调整 */
-.modal-content {
-  position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
-  border-radius: 20px;
-  overflow: hidden;
-  animation: scaleIn 0.3s ease;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-/* 图片卡片样式 */
+/* Material 3 Expressive 图片卡片样式 */
 .image-card {
   position: relative;
-  border-radius: 16px;
+  border-radius: 24px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.3s ease;
   aspect-ratio: 4/3;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  background-color: var(--surface-color);
+  border: 1.7px solid var(--outline-color);
+  box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .image-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px var(--shadow-color);
 }
 
 .image-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
 .image-card:hover img {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
-/* 图片卡片信息 */
+/* Material 3 Expressive 图片卡片信息 */
 .image-info {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1.5rem;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-  transform: translateY(100%);
+  padding: 1.5rem 1.5rem 2.5rem 1.5rem;
+  background: none;
+  transform: translateY(0);
   transition: transform 0.3s ease;
 }
 
+/* 移除悬停效果，因为标题已经一直显示 */
 .image-card:hover .image-info {
   transform: translateY(0);
 }
 
 .image-info h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+  margin-bottom: -1rem;
   color: white;
+  margin-top: 1rem;
 }
 
 .image-info p {
@@ -286,7 +346,33 @@
   margin: 0;
 }
 
-/* 模态框样式 */
+/* 模态框内图片信息 - 调整大小 */
+.modal-content .image-info {
+  padding: 1.5rem;
+}
+
+.modal-content .image-info h3 {
+  font-size: 1.8rem !important;
+  margin-bottom: 0.5rem;
+  color: white !important;
+}
+
+.modal-content .image-info p {
+  font-size: 0.9rem;
+}
+
+/* 图片导航信息 */
+.image-navigation-info {
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+  border-top: none;
+}
+
+.image-counter {
+  font-size: 0.9rem;
+}
+
+/* Material 3 Expressive 模态框样式 */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -294,8 +380,6 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -303,70 +387,89 @@
   animation: fadeIn 0.3s ease;
 }
 
+/* 模态框内容样式 - 合并为单一样式，移除模糊效果 */
 .modal-content {
   position: relative;
   max-width: 90vw;
   max-height: 90vh;
-  border-radius: 20px;
+  border-radius: 24px;
   overflow: hidden;
   animation: scaleIn 0.3s ease;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 图片容器 */
+.modal-image-container {
+  position: relative;
+  display: block;
+  max-width: 100%;
+  max-height: 80vh;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .modal-content img {
-  width: 100%;
+  width: auto;
   height: auto;
+  max-width: 100%;
   max-height: 80vh;
   object-fit: contain;
 }
 
+/* Material 3 Expressive 模态框关闭按钮 */
 .modal-close {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--outline-color);
   border-radius: 50%;
   width: 44px;
   height: 44px;
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   margin: 0;
   outline: none;
+  box-shadow: 0 2px 4px var(--shadow-color);
   /* 重置所有可能影响居中的样式 */
-  font: inherit;
-  color: inherit;
+  font-family: inherit;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--on-surface);
+  line-height: 1;
   text-align: center;
   text-transform: none;
-  line-height: normal;
   letter-spacing: normal;
   word-spacing: normal;
   text-indent: 0;
   text-shadow: none;
   box-sizing: border-box;
-}
-
-/* 使用SVG背景实现完全居中的X图标 */
-.modal-close {
-  /* 使用SVG数据URI，确保X图标完全居中 */
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><line x1="3" y1="3" x2="13" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="13" x2="13" y2="3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 16px 16px;
-  /* 移除文字，只使用背景图 */
-  color: transparent;
+  /* 确保按钮在最上层显示 */
+  z-index: 1000;
+  /* 确保按钮始终可见 */
+  opacity: 1;
+  /* 移除默认按钮样式 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .modal-close:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
   transform: scale(1.1);
-  /* 保持背景图居中 */
-  background-position: center;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  border: none;
 }
 
 /* 动画效果 */
@@ -390,29 +493,127 @@
   }
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .gallery-header h1 {
-    font-size: 2rem;
-  }
-  
-  .gallery-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-    padding: 0 1rem;
-  }
-  
-  .image-card {
-    aspect-ratio: 3/4;
-  }
+/* 基于UA检测的移动端样式 */
+/* 移动端header样式 */
+.gallery-header.is-mobile {
+  width: 90px;
+  height: 90px;
+  padding: 0.75rem;
+  bottom: 1rem;
+  right: 1rem;
+  overflow: hidden;
 }
 
-@media (max-width: 480px) {
-  .gallery-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .gallery-header {
-    padding: 1rem;
-  }
+.avatar.is-mobile {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.user-profile.is-mobile {
+  gap: 0.3rem;
+}
+
+.user-name.is-mobile {
+  font-size: 0.02rem;
+  font-weight: 200;
+  letter-spacing: 0;
+  max-width: 100%;
+}
+
+/* 移动端社交媒体弹窗样式 */
+.social-links-popup.is-mobile {
+  right: auto;
+  left: 1rem;
+  bottom: 1rem;
+  width: calc(100vw - 2rem);
+  max-width: 300px;
+}
+
+/* 移动端图库网格样式 */
+.gallery-grid.is-mobile {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 0 1rem;
+}
+
+/* 小屏幕移动端图库网格 */
+.gallery-grid.is-mobile {
+  grid-template-columns: 1fr;
+}
+
+/* 移动端图片卡片样式 */
+.image-card.is-mobile {
+  aspect-ratio: 1/1;
+}
+
+/* 移动端模态框样式 */
+.modal-overlay.is-mobile {
+  /* 移动端模态框覆盖层样式 */
+}
+
+.modal-content.is-mobile {
+  max-width: 98vw;
+  max-height: 98vh;
+  padding: 0.5rem;
+}
+
+.modal-content.is-mobile img,
+.modal-image.is-mobile {
+  max-height: 90vh;
+}
+
+/* 移动端模态框内图片信息 */
+.modal-content.is-mobile .image-info {
+  padding: 0.75rem;
+}
+
+.modal-content.is-mobile .image-info h3 {
+  font-size: 0.85rem;
+  margin-bottom: 0.2rem;
+}
+
+.modal-content.is-mobile .image-info p {
+  font-size: 0.65rem;
+}
+
+/* 移动端图片导航信息 */
+.image-navigation-info.is-mobile {
+  padding-top: 0.2rem;
+  margin-top: 0.2rem;
+}
+
+.image-counter.is-mobile {
+  font-size: 0.7rem;
+}
+
+/* 移动端模态框导航按钮 */
+.modal-nav-btn.is-mobile {
+  width: 30px;
+  height: 30px;
+  font-size: 0.5rem;
+}
+
+.modal-nav-btn.is-mobile:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* 移动端关闭按钮 */
+.modal-close.is-mobile {
+  width: 30px;
+  height: 30px;
+  /* 缩小X标识的SVG背景图片 */
+  background-size: 12px 12px;
+}
+
+.modal-close.is-mobile:hover {
+  /* 确保悬停时背景图片大小保持一致 */
+  background-size: 12px 12px;
+  /* 确保悬停时样式正常 */
+}
+
+/* 小屏幕移动端gallery-header样式 */
+.gallery-header.is-mobile {
+  padding: 1rem;
 }

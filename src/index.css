@@ -1,11 +1,46 @@
+/* 引入自定义字体 */
+@font-face {
+  font-family: 'Smiley Sans';
+  src: url('/SmileySans-Oblique.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: 'Smiley Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
+  /* Material 3 Expressive 色彩方案 */
+  --primary-color: #6750a4;
+  --primary-container: #eaddff;
+  --secondary-color: #625b71;
+  --secondary-container: #e8def8;
+  --tertiary-color: #7d5260;
+  --tertiary-container: #ffd8e4;
+  --background-color: #fff5f1;
+  --surface-color: #ffffff;
+  --surface-variant: #e7e0ec;
+  --error-color: #b3261e;
+  --error-container: #f9dedc;
+  --on-primary: #ffffff;
+  --on-primary-container: #21005d;
+  --on-secondary: #ffffff;
+  --on-secondary-container: #1d192b;
+  --on-tertiary: #ffffff;
+  --on-tertiary-container: #370b1e;
+  --on-background: #1c1b1f;
+  --on-surface: #1c1b1f;
+  --on-surface-variant: #49454f;
+  --on-error: #ffffff;
+  --on-error-container: #410e0b;
+  --outline-color: #79747e;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+
   color-scheme: light;
-  color: rgba(255, 255, 255, 0.95);
-  background: transparent;
+  color: var(--on-background);
+  background: var(--background-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,27 +60,20 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
-  background-image: url('/background.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  background-color: var(--background-color);
 }
 
-/* 液态玻璃效果基础类 */
-.glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+/* Material 3 Expressive 表面样式 */
+.surface {
+  background-color: var(--surface-color);
+  border: 1px solid var(--outline-color);
+  border-radius: 24px;
+  box-shadow: 0 2px 4px var(--shadow-color);
   transition: all 0.3s ease;
 }
 
-.glass:hover {
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+.surface:hover {
+  box-shadow: 0 4px 8px var(--shadow-color);
   transform: translateY(-2px);
 }
 
@@ -53,10 +81,7 @@ body {
 h1 {
   font-size: 2.5em;
   font-weight: 700;
-  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--on-surface);
   margin-bottom: 1rem;
   text-align: center;
   letter-spacing: -0.5px;
@@ -65,9 +90,22 @@ h1 {
 h2 {
   font-size: 1.5em;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--on-surface);
   margin-bottom: 1rem;
   text-align: center;
+}
+
+h3 {
+  font-size: 1.25em;
+  font-weight: 600;
+  color: var(--on-surface);
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1em;
+  color: var(--on-surface-variant);
+  margin-bottom: 1rem;
 }
 
 /* 图片卡片样式 */
@@ -88,62 +126,78 @@ img {
   padding: 2rem 1.5rem;
 }
 
-/* 按钮样式 - 统一调整 */
+/* Material 3 Expressive 按钮样式 */
 button {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 16px;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--on-primary);
+  border: none;
+  border-radius: 28px;
   padding: 0.875em 1.75em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px var(--shadow-color);
   position: relative;
   overflow: hidden;
 }
 
-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-button:hover::before {
-  left: 100%;
-}
-
 button:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  box-shadow: 0 4px 8px var(--shadow-color);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  border-color: rgba(255, 255, 255, 0.4);
 }
 
 button:active {
   transform: translateY(0);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 button:focus,
 button:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.6);
-  outline-offset: 3px;
-  background: rgba(255, 255, 255, 0.2);
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* 次要按钮样式 */
+button.secondary {
+  background-color: var(--secondary-color);
+  color: var(--on-secondary);
+}
+
+button.secondary:hover {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+
+button.secondary:focus,
+button.secondary:focus-visible {
+  outline: 2px solid var(--secondary-color);
+}
+
+/* 文本按钮样式 */
+button.text {
+  background-color: transparent;
+  color: var(--primary-color);
+  box-shadow: none;
+}
+
+button.text:hover {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  box-shadow: none;
+}
+
+button.text:focus,
+button.text:focus-visible {
+  outline: 2px solid var(--primary-color);
 }
 
 
 
-/* 导航按钮特殊样式 */
+/* Material 3 Expressive 导航按钮样式 */
 .modal-nav-btn {
   width: 56px;
   height: 56px;
@@ -154,13 +208,12 @@ button:focus-visible {
   font-size: 2rem;
   line-height: 0.8;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--surface-color);
+  border: none;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  transition: all 0.3s ease;
   text-align: center;
+  color: var(--on-surface);
 }
 
 .modal-nav-btn::before {
@@ -168,38 +221,39 @@ button:focus-visible {
 }
 
 .modal-nav-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-50%) scale(1.15);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 8px var(--shadow-color);
+  border: none;
 }
 
 .modal-nav-btn:active {
   transform: translateY(-50%) scale(0.95);
+  box-shadow: 0 2px 4px var(--shadow-color);
 }
 
-/* 社交媒体链接按钮 */
+/* Material 3 Expressive 社交媒体链接按钮 */
 .social-link-item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: white;
+  color: var(--on-surface);
   text-decoration: none;
   padding: 0.875rem 1rem;
-  border-radius: 14px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  background-color: var(--surface-color);
+  border: 1px solid var(--outline-color);
+  box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .social-link-item:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateX(6px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  transform: translateX(4px);
+  box-shadow: 0 4px 8px var(--shadow-color);
+  border-color: var(--primary-color);
 }
 
 /* 响应式调整 */
